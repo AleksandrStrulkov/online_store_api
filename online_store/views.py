@@ -1,3 +1,12 @@
-from django.shortcuts import render
+from rest_framework.generics import CreateAPIView, ListAPIView
 
-# Create your views here.
+from online_store.serializers import LinkNetworkSerializer
+
+
+class LinkNetworkCreateAPIView(CreateAPIView):
+    serializer_class = LinkNetworkSerializer
+
+
+class LinkNetworkListAPIView(ListAPIView):
+    serializer_class = LinkNetworkSerializer
+    queryset = LinkNetwork.objects.all()

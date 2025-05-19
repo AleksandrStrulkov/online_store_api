@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'online_store',
     'users',
     # Сторонние приложения из библиотек
-    'rest_framework'
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

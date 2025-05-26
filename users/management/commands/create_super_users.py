@@ -12,6 +12,8 @@ load_dotenv(BASE_DIR / ".env")
 
 
 class Command(BaseCommand):
+    """Команда для создания суперпользователя"""
+
     def handle(self, *args, **options):
         if User.objects.filter(email=os.getenv("ADMIN_EMAIL")).exists():
             self.stdout.write(self.style.WARNING("Пользователь с правами администратора уже существует!"))

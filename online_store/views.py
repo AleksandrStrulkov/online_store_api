@@ -4,7 +4,7 @@ from rest_framework.generics import (CreateAPIView, DestroyAPIView,
                                      UpdateAPIView)
 
 from online_store.models import LinkNetwork
-from online_store.permissions import IsActiveUser, IsOwnerOrSuperuser
+from online_store.permissions import IsActiveUser, IsOwnerOrSuperuser, IsOwner
 from online_store.serializers import LinkNetworkSerializer
 
 
@@ -37,7 +37,7 @@ class LinkNetworkRetrieveAPIView(RetrieveAPIView):
 
     serializer_class = LinkNetworkSerializer
     queryset = LinkNetwork.objects.all()
-    permission_classes = [IsActiveUser, IsOwnerOrSuperuser]
+    permission_classes = [IsActiveUser]
 
 
 class LinkNetworkUpdateAPIView(UpdateAPIView):
@@ -45,7 +45,7 @@ class LinkNetworkUpdateAPIView(UpdateAPIView):
 
     serializer_class = LinkNetworkSerializer
     queryset = LinkNetwork.objects.all()
-    permission_classes = [IsActiveUser, IsOwnerOrSuperuser]
+    permission_classes = [IsActiveUser, IsOwner]
 
 
 class LinkNetworkDestroyAPIView(DestroyAPIView):

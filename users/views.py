@@ -1,3 +1,4 @@
+from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import ModelViewSet
 
 from users.models import User
@@ -11,9 +12,11 @@ class UsersViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def get_permission(self):
+    def get_permissions(self):
         # Разрешение только для активного пользователя
-        base_permissions = [IsActiveSelf]
+        if self.action == "create":
+            return [AllowAny()]
+        base_permissions = [IsActiveSelf()]
 
         # Изменение и удаление разрешаем только суперпользователю или владельцу
         if self.action in ["update", "partial_update", "destroy"]:
@@ -21,7 +24,4 @@ class UsersViewSet(ModelViewSet):
         return base_permissions
 
     def perform_create(self, serializer):
-        # Хеширование пароля
-        user = serializer.save()
-        user.set_password(user.password)
-        user.save()
+        serializer.save()

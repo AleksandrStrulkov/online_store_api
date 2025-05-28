@@ -10,10 +10,19 @@ class IsActiveUser(BasePermission):
         return bool(request.user and request.user.is_authenticated and request.user.is_active)
 
 
+class IsOwner(BasePermission):
+    """Разрешение доступа только владельцу объекта"""
+
+    message = "У вас нет прав на изменение этого объекта"
+
+    def has_object_permission(self, request, view, obj):
+        return bool(request.user and obj.owner == request.user)
+
+
 class IsOwnerOrSuperuser(BasePermission):
     """Разрешение доступа только владельцу объекта и суперпользователю"""
 
-    message = "У вас нет прав на изменение и удаления этого объекта"
+    message = "У вас нет прав на удаление этого объекта"
 
     def has_object_permission(self, request, view, obj):
         if request.user and request.user.is_superuser:

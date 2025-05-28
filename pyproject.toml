@@ -13,13 +13,41 @@ dependencies = [
     "python-dotenv (>=1.1.0,<2.0.0)",
     "psycopg2-binary (>=2.9.10,<3.0.0)",
     "markdown (>=3.8,<4.0)",
-    "django-filter (>=25.1,<26.0)"
+    "django-filter (>=25.1,<26.0)",
+    "djangorestframework-simplejwt (>=5.5.0,<6.0.0)",
+    "black (>=25.1.0,<26.0.0)"
 ]
 
 [tool.poetry]
 packages = [{include = "online_electr_store_api", from = "src"}]
 
 
+[tool.poetry.group.lint.dependencies]
+black = "^25.1.0"
+isort = "^6.0.1"
+flake8 = "^7.2.0"
+
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+# Максимальная длина строки
+line-length = 119
+# Файлы, которые не нужно форматировать
+exclude = '''
+(
+  /(
+      \.eggs         # Исключить несколько общих каталогов
+    | \.git          # в корне проекта
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | dist
+    | migrations
+  )/
+  | foo.py           # Также отдельно исключить файл с именем foo.py
+                     # в корне проекта
+)
+'''
